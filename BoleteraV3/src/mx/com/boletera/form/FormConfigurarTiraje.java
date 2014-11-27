@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import mx.com.boletera.bo.ConfigurarTirajeBO;
 import mx.com.boletera.model.Tiraje;
-import mx.com.boletera.util.ArchivoPDF;
 
 /**
  *
@@ -73,6 +72,9 @@ public class FormConfigurarTiraje extends JDialog {
         txtFolioFinal = new javax.swing.JTextField();
         txtNumDigitos = new javax.swing.JTextField();
         txtNumFolios = new javax.swing.JTextField();
+        lblConfiguracion = new javax.swing.JLabel();
+        wrnConfiguracion = new javax.swing.JLabel();
+        cmbConfiguracion = new javax.swing.JComboBox();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
@@ -199,8 +201,25 @@ public class FormConfigurarTiraje extends JDialog {
         pnlConfiguracion.add(txtNumFolios);
         txtNumFolios.setBounds(240, 170, 173, 20);
 
+        lblConfiguracion.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        lblConfiguracion.setText("Configuración de boleto");
+        lblConfiguracion.setFocusable(false);
+        pnlConfiguracion.add(lblConfiguracion);
+        lblConfiguracion.setBounds(10, 210, 213, 20);
+
+        wrnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/warning.png"))); // NOI18N
+        wrnConfiguracion.setToolTipText("Datos no válidos");
+        wrnConfiguracion.setFocusable(false);
+        wrnNumFolios.setVisible(false);
+        pnlConfiguracion.add(wrnConfiguracion);
+        wrnConfiguracion.setBounds(420, 210, 16, 20);
+
+        cmbConfiguracion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        pnlConfiguracion.add(cmbConfiguracion);
+        cmbConfiguracion.setBounds(240, 210, 170, 20);
+
         getContentPane().add(pnlConfiguracion);
-        pnlConfiguracion.setBounds(10, 10, 460, 210);
+        pnlConfiguracion.setBounds(10, 10, 460, 250);
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/accept.png"))); // NOI18N
         btnAceptar.setText("Aceptar");
@@ -211,7 +230,7 @@ public class FormConfigurarTiraje extends JDialog {
             }
         });
         getContentPane().add(btnAceptar);
-        btnAceptar.setBounds(490, 290, 116, 47);
+        btnAceptar.setBounds(490, 340, 116, 47);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -222,7 +241,7 @@ public class FormConfigurarTiraje extends JDialog {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(490, 350, 116, 47);
+        btnCancelar.setBounds(490, 400, 116, 47);
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/repeat.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
@@ -233,7 +252,7 @@ public class FormConfigurarTiraje extends JDialog {
             }
         });
         getContentPane().add(btnLimpiar);
-        btnLimpiar.setBounds(490, 410, 116, 47);
+        btnLimpiar.setBounds(490, 460, 116, 47);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(null);
@@ -246,15 +265,15 @@ public class FormConfigurarTiraje extends JDialog {
         jScrollPane2.setViewportView(jList2);
 
         jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(180, 60, 107, 159);
+        jScrollPane2.setBounds(200, 60, 107, 159);
 
         jButton1.setText(">>");
         jPanel1.add(jButton1);
-        jButton1.setBounds(120, 90, 56, 23);
+        jButton1.setBounds(130, 90, 56, 23);
 
         jButton2.setText("<<");
         jPanel1.add(jButton2);
-        jButton2.setBounds(120, 140, 56, 23);
+        jButton2.setBounds(130, 140, 56, 23);
 
         lblTitulo1.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblTitulo1.setText("Reglas del tiraje");
@@ -269,7 +288,7 @@ public class FormConfigurarTiraje extends JDialog {
         lblTitulo3.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblTitulo3.setText("Seleccionadas");
         jPanel1.add(lblTitulo3);
-        lblTitulo3.setBounds(180, 30, 95, 20);
+        lblTitulo3.setBounds(200, 30, 95, 20);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add.png"))); // NOI18N
         btnAgregar.setText("Agregar");
@@ -280,10 +299,10 @@ public class FormConfigurarTiraje extends JDialog {
             }
         });
         jPanel1.add(btnAgregar);
-        btnAgregar.setBounds(300, 60, 116, 39);
+        btnAgregar.setBounds(330, 60, 116, 39);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 230, 440, 230);
+        jPanel1.setBounds(10, 270, 460, 240);
 
         btnGenerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/process.png"))); // NOI18N
         btnGenerar.setText("Generar");
@@ -294,9 +313,9 @@ public class FormConfigurarTiraje extends JDialog {
             }
         });
         getContentPane().add(btnGenerar);
-        btnGenerar.setBounds(490, 230, 116, 47);
+        btnGenerar.setBounds(490, 280, 116, 47);
 
-        setBounds(0, 0, 622, 533);
+        setBounds(0, 0, 641, 557);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
@@ -600,6 +619,7 @@ public class FormConfigurarTiraje extends JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JComboBox cmbConfiguracion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JList jList1;
@@ -607,6 +627,7 @@ public class FormConfigurarTiraje extends JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblConfiguracion;
     private javax.swing.JLabel lblFolioFinal;
     private javax.swing.JLabel lblFolioInicial;
     private javax.swing.JLabel lblNumDigitos;
@@ -620,6 +641,7 @@ public class FormConfigurarTiraje extends JDialog {
     private javax.swing.JTextField txtFolioInicial;
     private javax.swing.JTextField txtNumDigitos;
     private javax.swing.JTextField txtNumFolios;
+    private javax.swing.JLabel wrnConfiguracion;
     private javax.swing.JLabel wrnFolioFinal;
     private javax.swing.JLabel wrnFolioInicial;
     private javax.swing.JLabel wrnNumDigitos;
