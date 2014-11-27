@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import mx.com.boletera.dao.TirajeDAO;
 import mx.com.boletera.dao.TirajeReglaDAO;
+import mx.com.boletera.model.Regla;
 import mx.com.boletera.model.Tiraje;
-import mx.com.boletera.model.TirajeRegla;
 import mx.com.boletera.util.ArchivoPDF;
 
 /**
@@ -57,15 +57,38 @@ public class ConfigurarTirajeBO {
     
     public List<String> generarListaFolios(Tiraje tiraje) throws Exception{
         List<String> listaFoliosTotales = new ArrayList<String>();
-        List<TirajeRegla> listaReglas = tirajeReglaDAO.buscarReglaPorTiraje(tiraje);
-        
-        for (Integer x = tiraje.getFolioInicial(); x <= tiraje.getFolioFinal(); x++) {
-            String folio = x.toString();
-            int num = folio.length();
-            for (int i = num; i < tiraje.getNumDigitos(); i++) {
-                folio = "0" + folio;
+        //obtener excepciones
+        List<Regla> reglas = tirajeReglaDAO.buscarReglaPorTiraje(tiraje);
+        List<Long> minimos = new ArrayList<Long>();
+        List<Long> maximos = new ArrayList<Long>();
+        for(Regla regla : reglas){
+            Long multiplicador = 1L;
+            for(int x=0; x<regla.getPosicion();x++){
+                multiplicador *= 10;
             }
-            listaFoliosTotales.add(folio);
+            Long minimo = regla.getDigito() * multiplicador;
+            minimos.add(minimo);
+            Long maximo = regla.getDigito()+1 * multiplicador;
+            maximos.add(maximo);
+        }
+
+        for (Integer folio = tiraje.getFolioInicial(); folio <= tiraje.getFolioFinal(); folio++) {
+            //validar excepciones
+            boolean valido = true;
+            for(int y=0; y < reglas.size(); y++){
+                if(folio>=minimos.get(y) && folio<=maximos.get(y)){
+                    valido = false;
+                    break;
+                }
+            }
+            if(valido){
+                String folioStr = folio.toString();
+                int num = folioStr.length();
+                for (int i = num; i < tiraje.getNumDigitos(); i++) {
+                    folioStr = "0" + folioStr;
+                }
+                listaFoliosTotales.add(folioStr);
+            }
         }
         return listaFoliosTotales;
     }

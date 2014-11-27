@@ -23,9 +23,9 @@ import mx.com.boletera.util.Conexion;
  */
 public class TirajeReglaDAO {
     
-    public List<TirajeRegla> buscarReglaPorTiraje(Tiraje tiraje){
+    public List<Regla> buscarReglaPorTiraje(Tiraje tiraje){
         Conexion conexion = Conexion.getConexion();
-        List<TirajeRegla> tirajes = null;
+        List<Regla> reglas = null;
         Connection con = null;
         PreparedStatement pst = null;        
         ResultSet rs = null;
@@ -40,14 +40,15 @@ public class TirajeReglaDAO {
             pst = con.prepareStatement(query);
             //pst.setInt(1, 1001);
             rs = pst.executeQuery();
-            tirajes = new ArrayList<>();
+            reglas = new ArrayList<>();
             while (rs.next()) {
-                TirajeRegla item = new TirajeRegla();
+                //TirajeRegla item = new TirajeRegla();
                 //Tiraje tiraje = new Tiraje();
                 Regla regla = new Regla();
-                item.setRegla(regla);
+                reglas.add(regla);
+                //item.setRegla(regla);
                 //item.setTiraje(tiraje);
-                tirajes.add(item);
+                //tirajes.add(item);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +67,7 @@ public class TirajeReglaDAO {
                 e.printStackTrace();
             }
         }
-        return tirajes;
+        return reglas;
     }
     
     public Tiraje insertarTiraje(Tiraje tiraje) throws Exception{
