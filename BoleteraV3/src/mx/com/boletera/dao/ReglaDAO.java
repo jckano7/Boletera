@@ -68,7 +68,7 @@ public class ReglaDAO {
         return tirajes;
     }
     
-    public Tiraje insertarTiraje(Tiraje tiraje) throws Exception{
+    public Regla insertarRegla(Regla regla) throws Exception{
         Conexion conexion = Conexion.getConexion();
         Connection con;
         con = conexion.getConnection();
@@ -77,7 +77,7 @@ public class ReglaDAO {
         try {
             String query = "INSERT INTO `boletera`.`tiraje` (`folio_inicial`, `folio_final`, `numero_digitos`, `numero_folios`) VALUES ('1000', '2000', '4', '4')";
             pst = con.prepareStatement(query);
-            pst.setInt(1,tiraje.getFolioInicial());
+            pst.setInt(1,regla.getPosicion());
             pst.setInt(1,tiraje.getFolioFinal());
             pst.setInt(1,tiraje.getNumDigitos());
             pst.setInt(1,tiraje.getNumFolios());
@@ -102,7 +102,7 @@ public class ReglaDAO {
                 e.printStackTrace();
             }
         }
-        return tiraje;
+        return regla;
     }
     
     public Tiraje actualizarTiraje(Tiraje tiraje) throws Exception{

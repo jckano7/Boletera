@@ -55,17 +55,17 @@ public class FormConfigurarRegla extends JDialog {
         lblTitulo.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblTitulo.setText("Configurar regla excluyente");
         pnlRegla.add(lblTitulo);
-        lblTitulo.setBounds(8, 8, 188, 20);
+        lblTitulo.setBounds(8, 8, 188, 21);
 
         lblDigito.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblDigito.setText("Dígito");
         pnlRegla.add(lblDigito);
-        lblDigito.setBounds(8, 47, 109, 20);
+        lblDigito.setBounds(10, 50, 109, 21);
 
         lblPosicion.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         lblPosicion.setText("Posición");
         pnlRegla.add(lblPosicion);
-        lblPosicion.setBounds(8, 84, 109, 20);
+        lblPosicion.setBounds(10, 100, 109, 21);
 
         txtDigito.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDigito.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -77,7 +77,7 @@ public class FormConfigurarRegla extends JDialog {
             }
         });
         pnlRegla.add(txtDigito);
-        txtDigito.setBounds(90, 40, 120, 20);
+        txtDigito.setBounds(90, 50, 120, 28);
 
         txtPosicion.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtPosicion.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -89,21 +89,21 @@ public class FormConfigurarRegla extends JDialog {
             }
         });
         pnlRegla.add(txtPosicion);
-        txtPosicion.setBounds(90, 80, 120, 20);
+        txtPosicion.setBounds(90, 100, 120, 28);
 
         wrnDigito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/warning.png"))); // NOI18N
         wrnDigito.setToolTipText("Datos no válidos");
         wrnDigito.setFocusable(false);
         wrnDigito.setVisible(false);
         pnlRegla.add(wrnDigito);
-        wrnDigito.setBounds(220, 40, 16, 20);
+        wrnDigito.setBounds(220, 50, 16, 20);
 
         wrnPosicion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/warning.png"))); // NOI18N
         wrnPosicion.setToolTipText("Datos no válidos");
         wrnPosicion.setFocusable(false);
         wrnPosicion.setVisible(false);
         pnlRegla.add(wrnPosicion);
-        wrnPosicion.setBounds(220, 80, 16, 20);
+        wrnPosicion.setBounds(220, 100, 16, 20);
 
         getContentPane().add(pnlRegla);
         pnlRegla.setBounds(10, 10, 250, 160);
@@ -117,7 +117,7 @@ public class FormConfigurarRegla extends JDialog {
             }
         });
         getContentPane().add(btnAceptar);
-        btnAceptar.setBounds(280, 20, 140, 41);
+        btnAceptar.setBounds(280, 20, 140, 44);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -141,18 +141,18 @@ public class FormConfigurarRegla extends JDialog {
         getContentPane().add(btnLimpiar);
         btnLimpiar.setBounds(280, 120, 140, 47);
 
-        setBounds(0, 0, 461, 230);
+        setBounds(0, 0, 445, 214);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         Boolean valido = true;
         //folio inicial
-        Integer folioInicial = 0;
+        Integer digito = 0;
         String valor = txtDigito.getText();
-        boolean cumplePatron = Pattern.matches("^[0-9]{1,7}$", valor);
+        boolean cumplePatron = Pattern.matches("^[0-9]{1}$", valor);
         if (cumplePatron) {
             try {
-                folioInicial = Integer.parseInt(txtDigito.getText().trim());
+                digito = Integer.parseInt(txtDigito.getText().trim());
             } catch (Exception e) {
                 wrnDigito.setVisible(true);
                 txtDigito.setBackground(Color.red);
@@ -165,12 +165,12 @@ public class FormConfigurarRegla extends JDialog {
         }
 
         //folio final
-        Integer folioFinal = 0;
+        Integer posicion = 0;
         valor = txtPosicion.getText();
-        cumplePatron = Pattern.matches("^[0-9]{1,7}$", valor);
+        cumplePatron = Pattern.matches("^[0-9]{1}$", valor);
         if (cumplePatron) {
             try {
-                folioFinal = Integer.parseInt(txtPosicion.getText().trim());
+                posicion = Integer.parseInt(txtPosicion.getText().trim());
             } catch (Exception e) {
                 wrnPosicion.setVisible(true);
                 txtPosicion.setBackground(Color.red);
@@ -183,7 +183,8 @@ public class FormConfigurarRegla extends JDialog {
         }
 
         if (valido) {
-            if (folioInicial < folioFinal) {
+            configurarReglaBO.
+            //if (folioInicial < folioFinal) {
                 /*int num = folioFinal.toString().length();
                 if (num > numDigitos) {
                     JOptionPane.showMessageDialog(this, "El folio final excede los digitos permitidos");
@@ -203,9 +204,9 @@ public class FormConfigurarRegla extends JDialog {
                         }
                     }
                 }*/
-            } else {
-                JOptionPane.showMessageDialog(this, "Folio final debe ser mayor a folio inicial");
-            }
+            //} else {
+            //    JOptionPane.showMessageDialog(this, "Folio final debe ser mayor a folio inicial");
+            //}
         } else {
             JOptionPane.showMessageDialog(this, "Revise los datos ingresados");
         }
