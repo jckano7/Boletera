@@ -33,7 +33,7 @@ public class TirajeDAO {
                     + "folio_final, "
                     + "numero_digitos, "
                     + "numero_folios "
-                    + "FROM boletera.tiraje;";
+                    + "FROM boletera.tiraje";
             con = conexion.getConnection();
             pst = con.prepareStatement(query);
             //pst.setInt(1, 1001);
@@ -79,16 +79,17 @@ public class TirajeDAO {
                     + "(folio_inicial, "
                     + "folio_final, "
                     + "numero_digitos, "
-                    + "numero_folios) VALUES "
+                    + "numero_folios) "
+                    + "VALUES "
                     + "(?, ?, ?, ?)";
             pst = con.prepareStatement(query);
             pst.setInt(1,tiraje.getFolioInicial());
-            pst.setInt(1,tiraje.getFolioFinal());
-            pst.setInt(1,tiraje.getNumDigitos());
-            pst.setInt(1,tiraje.getNumFolios());
+            pst.setInt(2,tiraje.getFolioFinal());
+            pst.setInt(3,tiraje.getNumDigitos());
+            pst.setInt(4,tiraje.getNumFolios());
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("An existing user was updated successfully!");
+                System.out.println("Tirajes insertados: " + rowsUpdated);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +118,13 @@ public class TirajeDAO {
         PreparedStatement pst = null;        
         ResultSet rs = null;
         try {
-            String query = "UPDATE boletera.tiraje SET id_tiraje = ?, folio_inicial = ?, folio_final = ?, numero_digitos = ?, numero_folios = ? WHERE id_tiraje = ?";
+            String query = "UPDATE boletera.tiraje SET " + 
+                "id_tiraje = ?, " +
+                "folio_inicial = ?, " +
+                "folio_final = ?, " +
+                "numero_digitos = ?, " +
+                "numero_folios = ? " +
+                "WHERE id_tiraje = ?";
             pst = con.prepareStatement(query);
             pst.setInt(1,tiraje.getFolioInicial());
             pst.setInt(1,tiraje.getFolioFinal());
@@ -125,7 +132,7 @@ public class TirajeDAO {
             pst.setInt(1,tiraje.getNumFolios());
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("An existing user was updated successfully!");
+                System.out.println("Tirajes actualizados: " + rowsUpdated);
             }
         } catch (Exception e) {
             e.printStackTrace();

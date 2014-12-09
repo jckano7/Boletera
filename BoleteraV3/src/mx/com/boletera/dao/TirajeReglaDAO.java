@@ -23,54 +23,7 @@ import mx.com.boletera.util.Conexion;
  */
 public class TirajeReglaDAO {
     
-    public List<Regla> buscarReglaPorTiraje(Tiraje tiraje){
-        Conexion conexion = Conexion.getConexion();
-        List<Regla> reglas = null;
-        Connection con = null;
-        PreparedStatement pst = null;        
-        ResultSet rs = null;
-        try {
-            String query = "SELECT tiraje.id_tiraje, "
-                    + "tiraje.folio_inicial, "
-                    + "tiraje.folio_final, "
-                    + "tiraje.numero_digitos, "
-                    + "tiraje.numero_folios "
-                    + "FROM boletera.tiraje;";
-            con = conexion.getConnection();
-            pst = con.prepareStatement(query);
-            //pst.setInt(1, 1001);
-            rs = pst.executeQuery();
-            reglas = new ArrayList<>();
-            while (rs.next()) {
-                //TirajeRegla item = new TirajeRegla();
-                //Tiraje tiraje = new Tiraje();
-                Regla regla = new Regla();
-                reglas.add(regla);
-                //item.setRegla(regla);
-                //item.setTiraje(tiraje);
-                //tirajes.add(item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if(rs != null){
-                    rs.close();
-                }
-                if(pst != null){
-                    pst.close();
-                }
-                if(con != null){
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return reglas;
-    }
-    
-    public Tiraje insertarTiraje(Tiraje tiraje) throws Exception{
+    public Tiraje insertarTirajeRegla(Tiraje tiraje) throws Exception{
         Conexion conexion = Conexion.getConexion();
         Connection con;
         con = conexion.getConnection();
@@ -107,29 +60,28 @@ public class TirajeReglaDAO {
         return tiraje;
     }
     
-    public Tiraje actualizarTiraje(Tiraje tiraje) throws Exception{
+    public List<Regla> recuperarReglasNoTiraje(Tiraje tiraje){
         Conexion conexion = Conexion.getConexion();
-        Connection con;
-        con = conexion.getConnection();
+        List<Regla> reglas = null;
+        Connection con = null;
         PreparedStatement pst = null;        
         ResultSet rs = null;
         try {
-            String query = "UPDATE `boletera`.`tiraje`\n" +
-"SET\n" +
-"`id_tiraje` = <{id_tiraje: }>,\n" +
-"`folio_inicial` = <{folio_inicial: }>,\n" +
-"`folio_final` = <{folio_final: }>,\n" +
-"`numero_digitos` = <{numero_digitos: }>,\n" +
-"`numero_folios` = <{numero_folios: }>\n" +
-"WHERE `id_tiraje` = <{expr}>;";
+            String query = "SELECT regla.id_regla, " +
+                "regla.digito, " +
+                "regla.posicion " +
+                "FROM boletera.regla ";
+            con = conexion.getConnection();
             pst = con.prepareStatement(query);
-            pst.setInt(1,tiraje.getFolioInicial());
-            pst.setInt(1,tiraje.getFolioFinal());
-            pst.setInt(1,tiraje.getNumDigitos());
-            pst.setInt(1,tiraje.getNumFolios());
-            int rowsUpdated = pst.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("An existing user was updated successfully!");
+            //pst.setInt(1, 1001);
+            rs = pst.executeQuery();
+            reglas = new ArrayList<>();
+            while (rs.next()) {
+                Regla regla = new Regla();
+                regla.setIdRegla(rs.getInt(1));
+                regla.setDigito(rs.getInt(2));
+                regla.setPosicion(rs.getInt(3));
+                reglas.add(regla);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,30 +100,32 @@ public class TirajeReglaDAO {
                 e.printStackTrace();
             }
         }
-        return tiraje;
-    }
-        
-    public Tiraje recuperarTiraje(Tiraje tiraje) throws Exception{
+        return reglas;
+    }    
+    
+    
+    public List<Regla> recuperarReglasPorTiraje(Tiraje tiraje){
         Conexion conexion = Conexion.getConexion();
-        Connection con;
-        con = conexion.getConnection();
+        List<Regla> reglas = null;
+        Connection con = null;
         PreparedStatement pst = null;        
         ResultSet rs = null;
         try {
-            String query = "SELECT tiraje.id_tiraje, "
-                    + "tiraje.folio_inicial, "
-                    + "tiraje.folio_final, "
-                    + "tiraje.numero_digitos, "
-                    + "tiraje.numero_folios "
-                    + "FROM boletera.tiraje;";
+            String query = "SELECT regla.id_regla,\n" +
+"    regla.digito,\n" +
+"    regla.posicion\n" +
+"FROM boletera.regla;";
+            con = conexion.getConnection();
             pst = con.prepareStatement(query);
-            pst.setInt(1,tiraje.getFolioInicial());
-            pst.setInt(1,tiraje.getFolioFinal());
-            pst.setInt(1,tiraje.getNumDigitos());
-            pst.setInt(1,tiraje.getNumFolios());
-            int rowsUpdated = pst.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("An existing user was updated successfully!");
+            //pst.setInt(1, 1001);
+            rs = pst.executeQuery();
+            reglas = new ArrayList<>();
+            while (rs.next()) {
+                Regla regla = new Regla();
+                regla.setIdRegla(rs.getInt(1));
+                regla.setDigito(rs.getInt(2));
+                regla.setPosicion(rs.getInt(3));
+                reglas.add(regla);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,6 +144,6 @@ public class TirajeReglaDAO {
                 e.printStackTrace();
             }
         }
-        return tiraje;
+        return reglas;
     }
 }

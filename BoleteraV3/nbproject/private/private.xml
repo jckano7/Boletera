@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/jkano/NetBeansProjects/Boletera/BoleteraV3/src/mx/com/boletera/bo/ConfigurarReglaBO.java</file>
             <file>file:/Users/jkano/NetBeansProjects/Boletera/BoleteraV3/src/mx/com/boletera/form/FormConfigurarRegla.java</file>
+            <file>file:/Users/jkano/NetBeansProjects/Boletera/BoleteraV3/src/mx/com/boletera/dao/TirajeDAO.java</file>
             <file>file:/Users/jkano/NetBeansProjects/Boletera/BoleteraV3/src/mx/com/boletera/bo/ConfigurarTirajeBO.java</file>
+            <file>file:/Users/jkano/NetBeansProjects/Boletera/BoleteraV3/src/mx/com/boletera/form/FormBuscarTiraje.java</file>
             <file>file:/Users/jkano/NetBeansProjects/Boletera/BoleteraV3/src/mx/com/boletera/dao/ReglaDAO.java</file>
         </group>
     </open-files>

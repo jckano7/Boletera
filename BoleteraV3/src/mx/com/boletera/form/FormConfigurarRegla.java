@@ -7,10 +7,13 @@
 package mx.com.boletera.form;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import mx.com.boletera.bo.ConfigurarReglaBO;
+import mx.com.boletera.model.Regla;
 
 /**
  *
@@ -183,30 +186,16 @@ public class FormConfigurarRegla extends JDialog {
         }
 
         if (valido) {
-            configurarReglaBO.
-            //if (folioInicial < folioFinal) {
-                /*int num = folioFinal.toString().length();
-                if (num > numDigitos) {
-                    JOptionPane.showMessageDialog(this, "El folio final excede los digitos permitidos");
-                } else {
-                    ArchivoPDF archivo = new ArchivoPDF(folioInicial, folioFinal, numDigitos, numFolios, 1);
-                    JFileChooser dialogo = new JFileChooser();
-                    dialogo.setDialogTitle("Guardar archivo");
-                    FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF", "pdf");
-                    dialogo.setFileFilter(filter);
-                    int estado = dialogo.showSaveDialog(this);
-                    if (estado == JFileChooser.APPROVE_OPTION) {
-                        File archivoelegido = dialogo.getSelectedFile();
-                        String path = archivoelegido.getAbsolutePath();
-                        int res = archivo.generarPDF(path);
-                        if (res == 0) {
-                            JOptionPane.showMessageDialog(this, "Guardado exitoso");
-                        }
-                    }
-                }*/
-            //} else {
-            //    JOptionPane.showMessageDialog(this, "Folio final debe ser mayor a folio inicial");
-            //}
+            try {
+                Regla regla = new Regla();
+                regla.setDigito(digito);
+                regla.setPosicion(posicion);
+                regla = configurarReglaBO.insertarRegla(regla);
+                JOptionPane.showMessageDialog(this, "Regla insertada con exito");
+                this.setVisible(false);
+            } catch (Exception ex) {
+                Logger.getLogger(FormConfigurarRegla.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Revise los datos ingresados");
         }

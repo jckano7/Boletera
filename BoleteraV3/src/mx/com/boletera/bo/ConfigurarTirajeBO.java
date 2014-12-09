@@ -58,7 +58,7 @@ public class ConfigurarTirajeBO {
     public List<String> generarListaFolios(Tiraje tiraje) throws Exception{
         List<String> listaFoliosTotales = new ArrayList<String>();
         //obtener excepciones
-        List<Regla> reglas = tirajeReglaDAO.buscarReglaPorTiraje(tiraje);
+        List<Regla> reglas = tirajeReglaDAO.recuperarReglasPorTiraje(tiraje);
         List<Long> minimos = new ArrayList<Long>();
         List<Long> maximos = new ArrayList<Long>();
         for(Regla regla : reglas){
